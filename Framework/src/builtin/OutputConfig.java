@@ -36,4 +36,10 @@ public class OutputConfig implements EvolverStateProcess {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void Terminate() {
+		// TODO Auto-generated method stub
+		
+	}
 }

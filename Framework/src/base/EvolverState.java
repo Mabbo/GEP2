@@ -1,4 +1,5 @@
 package base;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 public class EvolverState {
@@ -56,5 +57,8 @@ public class EvolverState {
 		runNumber = 0;
 	}
 	
+	public PrintWriter out() {
+		return config.out();
+	}
 	
 }

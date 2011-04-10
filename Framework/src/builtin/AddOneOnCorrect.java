@@ -14,12 +14,14 @@ public class AddOneOnCorrect implements FitnessProcess {
 		for( Unit u : es.getPopulation() ){
 		//set fitness to 0
 			u.setFitnessScore(0);
+			u.setNumberCorrect(0);
 		//For each test in the training set
 			for( Instance inst : es.getTrainingSet().getInstances() ){
 		//If the member correctly identifies class, add one to fitness
 				int guess = u.Classify(inst);
 				if( guess == inst.getClassValue() ) {
 					u.incrementFitness(1);
+					u.incrementNumberCorrect(1);
 				}
 			}
 		}
@@ -30,6 +32,11 @@ public class AddOneOnCorrect implements FitnessProcess {
 	}
 	public boolean isFitnessProcess() {
 		return true;
+	}
+	@Override
+	public void Terminate() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

@@ -1,6 +1,5 @@
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Frame;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -257,7 +256,7 @@ public class ConfigPanel extends JPanel {
 		AddItem(lblSelectionMethod, txtSelectionProcess, txtSelectionProcessParamters, butSelectionProcess);
 	
 		lblMutators = new JLabel("Mutators");
-		cspMutators = new ModifierSetPanel(owner, "Mutator", framework.Mutator.class);
+		cspMutators = new ModifierSetPanel(owner, "Mutator", framework.Mutator.class, erredList);
 		cspMutators.Initialize(config.getMutators());
 		AddItem(lblMutators, cspMutators);
 		
@@ -266,7 +265,7 @@ public class ConfigPanel extends JPanel {
 		AddItem(lblMutationRate, txtMutationRate);
 		
 		lblCrossovers = new JLabel("Crossovers");
-		cspCrossovers = new ModifierSetPanel(owner, "Crossover", framework.Crossover.class);
+		cspCrossovers = new ModifierSetPanel(owner, "Crossover", framework.Crossover.class, erredList);
 		cspCrossovers.Initialize(config.getCrossovers());
 		AddItem(lblCrossovers, cspCrossovers);
 	
@@ -508,7 +507,6 @@ public class ConfigPanel extends JPanel {
 			public void Change() {
 				int value = 0;
 				try{
-					String strVal = txtPopulationSize.getText();
 					value = Integer.parseInt( txtPopulationSize.getText() );
 				} catch(Exception ex){}
 				setIsErred(txtPopulationSize, value < 1);
@@ -534,7 +532,6 @@ public class ConfigPanel extends JPanel {
 			public void Change() {
 				int value = -1;
 				try{
-					String strVal = txtNumberRNC.getText();
 					value = Integer.parseInt( txtNumberRNC.getText() );
 				} catch(Exception ex){}
 				setIsErred(txtNumberRNC, value < 0);
@@ -656,13 +653,11 @@ public class ConfigPanel extends JPanel {
 		txtTrainPercentage.setText(config.getTrainingPercentage()+"");
 		txtNumberOfRuns.setText(config.getNumberOfRuns()+"");
 		txtNumberOfGenerations.setText(config.getNumberOfGenerations()+"");
-		String poptext = config.getPopulationSize() + "";
 		txtPopulationSize.setText(config.getPopulationSize()+"");
 		
 		txtNodeHeadSize.setText(config.getNodeHeadSize()+"");
 		
 		fslblFunctionSet.Redraw();
-		String rnctext = "" + config.getNumberOfRuns();
 		txtNumberRNC.setText(""+ config.getNumberRNC());
 		txtNumLayers.setText(""+ config.getNumberLayers());
 		lcpanel.setConfig(config);
@@ -685,11 +680,6 @@ public class ConfigPanel extends JPanel {
 		fslblFunctionSet.Initialize(config.getFunctions());
 		cspMutators.Initialize(config.getMutators());
 		cspCrossovers.Initialize(config.getCrossovers());
-		
-		
-		
-		
-		
 		
 		
 		this.revalidate();

@@ -63,8 +63,5 @@ public class Gene {
 		}
 		Gene ret = new Gene(dna, rnc);
 		return ret;
-	}
-	
-	
-	
+	}	
 }

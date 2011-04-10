@@ -9,8 +9,8 @@ public class ModulatingMutation implements EvolverStateProcess {
 	
 	int bestScore = -100000;
 	int timeSinceLastIncrease = 0;
-	final double minMutation = 0.25;
-	final double maxMutation = 10.0;
+	double minMutation = 0.25;
+	double maxMutation = 10.0;
 	int maxTime = 50;
 	
 	public void Process(EvolverState es) {
@@ -34,8 +34,21 @@ public class ModulatingMutation implements EvolverStateProcess {
 		
 	}
 
-	@Override
 	public void Initialize(String parameters) {
+		String[] paramList = parameters.split(" ");
+		for( int i = 0; i < paramList.length; ++i){
+			if( paramList[i].startsWith("min=")){
+				minMutation = Double.parseDouble(paramList[i].replace("min=", ""));
+			} else if( paramList[i].startsWith("max=")){
+				maxMutation = Double.parseDouble(paramList[i].replace("max=", ""));
+			} else if (paramList[i].startsWith("period=")){
+				maxTime = Integer.parseInt(paramList[i].replace("period=", ""));
+			}
+		}
+	}
+
+	@Override
+	public void Terminate() {
 		// TODO Auto-generated method stub
 		
 	}

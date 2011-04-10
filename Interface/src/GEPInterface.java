@@ -328,7 +328,12 @@ public class GEPInterface extends JFrame {
 		SaveConfigFile();
 
 		launchPanel.setLaunched();
-		et = new EvolverThread(config.getConfigFileName(), outputPanel.getWriter());
+		et = new EvolverThread(config.getConfigFileName(), outputPanel.getWriter(), 
+				new Evolver.EvolverFinishedActionListener() {
+					public void EvolverFinished() {
+						launchPanel.setStopped();
+					}
+				});
 		Thread thread = new Thread(et);
 		thread.start();
 		
@@ -346,10 +351,11 @@ public class GEPInterface extends JFrame {
 		String conf = null;
 		PrintWriter out = null;
 		
-		public EvolverThread(String confloc, PrintWriter out){
+		public EvolverThread(String confloc, PrintWriter out, Evolver.EvolverFinishedActionListener listener){
 			ev = new Evolver();
 			this.conf = confloc;
 			this.out = out;
+			ev.SetFinishedActionListener(listener);
 		}
 		
 		public EvolverThread(String conf){

@@ -9,7 +9,8 @@ import framework.*;
 
 public class Evolver {
 
-	Random _rand = new Random();
+	private Random _rand = new Random();
+	private EvolverFinishedActionListener listener;
 	
 	private Boolean killswitch = false;
 	private boolean isKilled() {
@@ -23,6 +24,10 @@ public class Evolver {
 		synchronized ( killswitch ) {
 			killswitch = true;
 		}
+	}
+	
+	public void SetFinishedActionListener(EvolverFinishedActionListener efal){
+		listener = efal;
 	}
 	
 	public void Evolve(String configFile) {
@@ -71,6 +76,7 @@ public class Evolver {
 		
 		//Create EvolverState object 
 		EvolverState es = new EvolverState(population, trainSet, testSet, conf);
+		conf.getFitnessProcess().Initialize("");
 
 		for( int i = 0; i < conf.getStartProcess().size(); ++i){
 			EvolverStateProcess esp = conf.getStartProcess().get(i);
@@ -120,14 +126,14 @@ public class Evolver {
 			//For each generation
 			for( int g = 0; g < conf.getNumberOfGenerations(); ++g ) {
 
-				if(isKilled()) return;
+				if(isKilled()) {EndProgramEarly(conf); return;}
 				for( EvolverStateProcess e : conf.getBeforeGenerationProcess()){
 					e.Process(es);
 				}
-				if(isKilled()) return;
+				if(isKilled()) {EndProgramEarly(conf); return;}
 				//Fitness test for each population member
 				conf.getFitnessProcess().Process(es);
-				if(isKilled()) return;
+				if(isKilled()) {EndProgramEarly(conf); return;}
 				
 				//Sort by fitness
 				Collections.sort(population);
@@ -135,7 +141,7 @@ public class Evolver {
 				//Select using selection method
 				SelectionMethod sel = conf.getSelectionMethod();
 				sel.RemovePopulation(es);
-				if(isKilled()) return;
+				if(isKilled()) {EndProgramEarly(conf); return;}
 				//Breed and Mutate
 				int popSize = population.size();
 				while( population.size() < conf.getPopulationSize() ) {
@@ -145,25 +151,29 @@ public class Evolver {
 					Unit newUnit = cross.Cross(A, B, conf);
 					population.add(newUnit);
 				}
-				if(isKilled()) return;
+				if(isKilled()) {EndProgramEarly(conf); return;}
 				for( int m = 0; m < conf.getMutationRate() * population.size(); ++m) {
 					Mutator mut = conf.getModificationSet().getMutator();
 					Unit u = population.get(_rand.nextInt(population.size()-1)+1);
 					mut.Mutate(u, conf);
 					u.Initialize();						
 				}
-				if(isKilled()) return;
+				if(isKilled()) {EndProgramEarly(conf); return;}
 				for( EvolverStateProcess e : conf.getEndOfGenerationProcess()){
 					e.Process(es);
 				}
-				if(isKilled()) return;
+				if(isKilled()) {EndProgramEarly(conf); return;}
 				es.IncrementGeneration();
 			}
+			
+			//Terminate ESPs
+			TerminateGenerationalESPs(conf);
+			
 			//For each Run EvolverStateProcess e
 			for( EvolverStateProcess e : conf.getEndOfRunProcess()){
 				e.Process(es);
 			}
-			if(isKilled()) return;
+			if(isKilled()) {EndProgramEarly(conf); return;}
 			es.IncrementRun();
 		}
 
@@ -173,5 +183,56 @@ public class Evolver {
 			esp.Initialize(params);
 			esp.Process(es);
 		}
+		
+		//Close processes
+		
+		TerminateRunESPs(conf);
+		conf.getFitnessProcess().Terminate();
+		TerminateStartEndESPs(conf);
+		
+		EndProgram();
 	}	
+	
+	private void TerminateESPSet(ArrayList<EvolverStateProcess> esps){
+		for( EvolverStateProcess esp : esps){
+			esp.Terminate();
+		}
+	}
+	
+	private void TerminateGenerationalESPs(Config conf){
+		TerminateESPSet(conf.getBeforeGenerationProcess());
+		TerminateESPSet(conf.getEndOfGenerationProcess());
+	}
+	private void TerminateRunESPs(Config conf){
+		TerminateESPSet(conf.getBeforeRunProcess());
+		TerminateESPSet(conf.getEndOfRunProcess());
+	}
+	private void TerminateStartEndESPs(Config conf){
+		TerminateESPSet(conf.getEndProcess());
+		TerminateESPSet(conf.getStartProcess());
+	}
+	private void TerminateAllESPs(Config conf){
+		TerminateStartEndESPs(conf);
+		TerminateRunESPs(conf);
+		TerminateGenerationalESPs(conf);
+	}
+	
+	public void EndProgramEarly(Config conf){
+		TerminateAllESPs(conf);
+		EndProgram();
+	}
+	
+	private void EndProgram(){
+		if( listener != null ){
+			listener.EvolverFinished();
+		}
+	}
+	
+	public static interface EvolverFinishedActionListener{
+		void EvolverFinished();
+	}
+	
+	
+	
+	
 }

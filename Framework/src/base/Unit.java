@@ -6,6 +6,7 @@ public class Unit implements Comparable<Unit>{
 	Phenome phenome;
 	Config config;
 	int fitnessScore = 0;
+	int numberCorrect = 0;
 	boolean initialized = false;
 	
 	public Unit(Config conf, Genome genome) {
@@ -16,6 +17,7 @@ public class Unit implements Comparable<Unit>{
 		config = other.getConfig(); 
 		genome = new Genome(other.genome);
 		fitnessScore = other.getFitnessScore();
+		numberCorrect = other.getNumberCorrect();
 	}
 	
 	public void Initialize(){
@@ -49,6 +51,13 @@ public class Unit implements Comparable<Unit>{
 	public void setFitnessScore(int fitnessScore) {
 		this.fitnessScore = fitnessScore;
 	}
+	
+	public int getNumberCorrect() {
+		return numberCorrect;
+	}
+	public void setNumberCorrect(int numberCorrect){
+		this.numberCorrect = numberCorrect;
+	}
 
 	public Config getConfig() {
 		return config;
@@ -63,5 +72,8 @@ public class Unit implements Comparable<Unit>{
 	public void incrementFitness(int i) {
 		fitnessScore += i;
 	}
-
+	public void incrementNumberCorrect(int i ){
+		numberCorrect += i;
+	}
+	
 }

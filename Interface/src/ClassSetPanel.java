@@ -6,8 +6,11 @@ import java.awt.event.ActionListener;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 public class ClassSetPanel extends JPanel {
 
@@ -61,6 +64,7 @@ public class ClassSetPanel extends JPanel {
 			//make a new textfield, and removable button
 			cons.gridy = ItemGridY;
 			cons.gridx = 0;
+			cons.gridwidth = 2;
 			JTextField text = new JTextField();
 			text.setColumns(20);
 			text.setText(ci.file);
@@ -76,10 +80,36 @@ public class ClassSetPanel extends JPanel {
 				}
 			});
 			
-			cons.gridx = 1;
+			cons.gridx = 2;
+			cons.gridwidth = 1;
 			layout.setConstraints(button, cons);
 			add(button);
 			ItemGridY++;
+			
+			cons.gridy = ItemGridY;
+			cons.gridx = 0;
+			cons.gridwidth = 1;
+			JLabel paramLabel = new JLabel("Parameters:");
+			layout.setConstraints(paramLabel, cons);
+			add(paramLabel);
+			
+			JTextField paramtext = new JTextField();
+			paramtext.setColumns(20);
+			paramtext.setText(ci.param);
+			final JTextField fparam = paramtext;
+			
+			AddChangeListener(paramtext, new ChangeMethod() {
+				public void Change() {
+					fci.param = fparam.getText();
+				}
+			});
+			
+			cons.gridx = 1;
+			cons.gridwidth = 2;
+			layout.setConstraints(paramtext, cons);
+			add(paramtext);
+			ItemGridY++;
+			
 		}
 		
 		cons.gridy = ItemGridY;
@@ -119,6 +149,21 @@ public class ClassSetPanel extends JPanel {
 
 	public ArrayList<ClassInformation> getClasses(){
 		return classes;
+	}
+	
+	private void AddChangeListener(JTextField text, ChangeMethod cm){
+		text.getDocument().addDocumentListener(makeChangeListener(cm));
+	}
+	
+	private DocumentListener makeChangeListener(final ChangeMethod cm){
+		return new DocumentListener() {
+			public void removeUpdate(DocumentEvent arg0) {Change();}
+			public void insertUpdate(DocumentEvent arg0) {Change();}
+			public void changedUpdate(DocumentEvent arg0) {Change();}
+			private void Change(){
+				cm.Change();
+			}
+		};
 	}
 	
 }

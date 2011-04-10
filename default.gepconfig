@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
 <xml>
-    <LastUsedConfigFile>/home/mabbo/test2.config</LastUsedConfigFile>
+    <LastUsedConfigFile>/home/mabbo/GEP2/testrun.config</LastUsedConfigFile>
     <Location>
-        <X>44</X>
-        <Y>24</Y>
+        <X>90</X>
+        <Y>53</Y>
     </Location>
-    <Width>1108</Width>
-    <Height>707</Height>
+    <Width>1112</Width>
+    <Height>709</Height>
 </xml>

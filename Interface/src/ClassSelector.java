@@ -173,7 +173,8 @@ public class ClassSelector {
 				}
 			});
 			
-			chooser.showOpenDialog(this);
+			int result = chooser.showOpenDialog(this);
+			if( result == JFileChooser.CANCEL_OPTION) return;
 			
 			File chosen = chooser.getSelectedFile();
 			File chosenDir = chooser.getCurrentDirectory();
@@ -194,7 +195,11 @@ public class ClassSelector {
 			    	}
 			    }
 			}catch(Exception ex){
-				System.err.println("Error loading class file: " + chosen.getAbsolutePath());
+				if( chosen != null ){
+					System.err.println("Error loading class file: " + chosen.getAbsolutePath());
+				} else {
+					System.err.println("Error loading class file.");
+				}
 			}
 			if( fc != null ){
 				LoadClass(fc, false);

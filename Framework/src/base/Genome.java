@@ -1,5 +1,8 @@
 package base;
 
+import java.util.ArrayList;
+import java.util.concurrent.ArrayBlockingQueue;
+
 public class Genome {
 
 	private Config _conf;
@@ -43,4 +46,33 @@ public class Genome {
 		_genes[layer][index] = g;
 	}
 
+	
+	//returns a byte[] representing the entire genome, every gene
+	public Byte[] getDNA() {
+		
+		ArrayList<Byte> built = new ArrayList<Byte>();
+		for( int i = 0; i < _genes.length; ++i){
+			for( int j = 0; j < _genes[i].length; ++j){
+				byte[] dna = _genes[i][j].getDNA();
+				for( int x = 0; x < dna.length; ++x)
+					built.add(dna[x]);
+			}
+		}
+		return built.toArray(new Byte[0]);
+	}
+	public String getDNAString() {
+		String output = "";
+		for( int i = 0; i < _genes.length; ++i){
+			for( int j = 0; j < _genes[i].length; ++j){
+				byte[] dna = _genes[i][j].getDNA();
+				for( int x = 0; x < dna.length; ++x)
+					output += "" + dna[x];
+				for( int y = 0; y < _genes[i][j].getRNC().length; ++y) {
+					output += "" + _genes[i][j].getRNC(y);
+				}
+			}
+		}
+		return output;		
+	}
+	
 }

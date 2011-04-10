@@ -1,3 +1,5 @@
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.Frame;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -10,6 +12,8 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 public class ModifierSetPanel extends JPanel {
 
@@ -21,15 +25,17 @@ public class ModifierSetPanel extends JPanel {
 	private GridBagConstraints cons;
 	private GEPInterface owner;
 	private Type mytype;
+	private ArrayList<Component> erredList = null;
 	
-	public ModifierSetPanel(GEPInterface owner, String classname, Type t){
-		init(owner, classname, t);
+	public ModifierSetPanel(GEPInterface owner, String classname, Type t, ArrayList<Component> erred){
+		init(owner, classname, t, erred);
 	}
 
-	private void init(GEPInterface owner, String classname, Type t){
+	private void init(GEPInterface owner, String classname, Type t, ArrayList<Component> erred){
 		this.className = classname;
 		this.owner = owner;
 		this.mytype = t;
+		this.erredList = erred;
 		layout = new GridBagLayout();
 		cons = new GridBagConstraints();
 		
@@ -70,7 +76,23 @@ public class ModifierSetPanel extends JPanel {
 			weight.setText("" + ci.weight);
 			weight.setEditable(true);
 			
+			final ModifierClassInformation fmci = ci;
 			//Change listener here!
+			final JTextField fweight = weight;
+			AddChangeListener(weight, new ChangeMethod() {
+				public void Change() {
+					int value = -1;
+					try{
+						value = Integer.parseInt( fweight.getText() );
+					} catch(Exception ex){}
+					setIsErred(fweight, value < 0);
+					if( value >= 0) {
+						fmci.weight = value;
+					}	
+				}
+			});
+			
+			
 			
 			cons.gridx = 1;
 			layout.setConstraints(weight, cons);
@@ -78,7 +100,6 @@ public class ModifierSetPanel extends JPanel {
 			
 			JButton button = new JButton("X");
 			cons.gridx = 2;
-			final ModifierClassInformation fmci = ci;
 			button.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					RemoveClass(fmci);
@@ -135,6 +156,34 @@ public class ModifierSetPanel extends JPanel {
 		mci.isBuiltIn = ci.isBuiltIn;
 		mci.weight = 1;
 		return mci;
+	}
+	
+	private void AddChangeListener(JTextField text, ChangeMethod cm){
+		text.getDocument().addDocumentListener(makeChangeListener(cm));
+	}
+	
+	private DocumentListener makeChangeListener(final ChangeMethod cm){
+		return new DocumentListener() {
+			public void removeUpdate(DocumentEvent arg0) {Change();}
+			public void insertUpdate(DocumentEvent arg0) {Change();}
+			public void changedUpdate(DocumentEvent arg0) {Change();}
+			private void Change(){
+				cm.Change();
+			}
+		};
+	}
+	private void setIsErred(Component comp, boolean erred){
+		if( erred ) {
+			if( !erredList.contains(comp)) {
+				erredList.add(comp);
+				comp.setBackground(Color.RED);
+			}
+		} else {
+			if( erredList.contains(comp)){
+				erredList.remove(comp);
+				comp.setBackground(Color.WHITE);
+			}
+		}
 	}
 	
 }
