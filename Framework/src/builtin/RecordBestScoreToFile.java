@@ -1,6 +1,7 @@
 package builtin;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -12,6 +13,7 @@ import framework.EvolverStateProcess;
 public class RecordBestScoreToFile implements EvolverStateProcess {
 
 	String filename;
+	
 	FileWriter fw;
 	Calendar calendar;
 	SimpleDateFormat sdf;
@@ -20,6 +22,17 @@ public class RecordBestScoreToFile implements EvolverStateProcess {
 	public void Initialize(String parameters) {
 		try {
 			filename = parameters;
+			String beforeExtension = filename.substring(0,filename.indexOf("."));
+			String extension = filename.substring(filename.indexOf("."));
+			String tempFilename = beforeExtension + extension;
+			int currentIndex = 1;
+			File f = new File(tempFilename);
+			while(f.exists() ){
+				tempFilename = beforeExtension + "[" + currentIndex + "]" + extension;
+				currentIndex++;
+				f = new File(tempFilename);
+			}
+			filename = tempFilename;
 			fw = new FileWriter(filename,false);
 			br = new BufferedWriter(fw);
 			calendar = Calendar.getInstance();

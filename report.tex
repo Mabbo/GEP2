@@ -34,9 +34,11 @@
 \author{} \date{}
 
 \maketitle
+\setcounter{tocdepth}{1}
 
 
 \chapter*{Abstract}
+\addcontentsline{toc}{chapter}{Abstract}
 
 Classification is a major part of machine learning, and is used everyday on large scales:
 Google identifies different types of searches and users; Amazon identifies
@@ -62,21 +64,31 @@ of the framework developed, how it works, and some experiments done using the fr
 the results of the tests will be presented, along with some conclusions, a description of the 
 concepts learned, and a short discussion on potential future work with the framework. 
 
-
-\addcontentsline{toc}{chapter}{Acknowledgements}
 \chapter*{Acknowledgements}
+\addcontentsline{toc}{chapter}{Acknowledgements}
 I would like to thank Dr. Anthony White for having supervised this project. His ability 
 to point me in the right direction at the right time has lead to a far better final product than I 
 could have achieved alone. Thanks as well to my family, friends and girlfriend, for supporting me and 
 understanding my many late nights of work to complete it. 
 
-
-\setcounter{tocdepth}{1}
 \tableofcontents 
+\addcontentsline{toc}{chapter}{Table of Contents}
 
 \chapter{Terminology}
--GEP : Gene Expression Programming
--GEA : Gene Expression Algorithm
+\begin{itemize}
+\item \textbf{Parse Tree}: Tree in which each node represents a function to be applied to the node's children.
+\item \textbf{Karva String}: String meeting certain conditions which the GEA can express as a parse tree.
+\item \textbf{Classification}: The process of taking an input vector of values, and returning a value from a 
+      set of possible classes.
+\item \textbf{DNA}: Deoxyribonucleic acid, the primary building block of life.
+\item \textbf{mRNA}: Messenger Ribonucleic acid, chemical blueprint for a protein. 
+ \item \textbf{GEP}: Gene Expression Programming.
+\item \textbf{GA}: Genetic Algorithm.
+\item \textbf{GEA}: Gene Expression Algorithm.
+\item \textbf{ANN}: Artificial Neural Network.
+\item \textbf{GEP ANN}: Gene Expression Programming Artificial Neural Network- an special type of ANN built 
+using GEP. 
+\end{itemize}
 
 
 \chapter{Introduction}
@@ -104,7 +116,7 @@ allow others to research further using it.
 The objectives of the project come down to a set of goals for the final product:
 
 \begin{enumerate}
- \item Build a framework which implements the Gene Expression Programming Algorithm.
+ \item Build a framework which implements the Gene Expression Algorithm (GEA).
  \item Make the framework expandable, so that future users can enhance it further, and use it for their purposes. 
  \item Use the framework to see how powerful classifiers built with it can be, with just the basic tools created
 alongside the framework. 
@@ -121,7 +133,7 @@ should first be explained.
 The first important concept is that of genotypes and phenotypes. In nature, the genotype is the genetic makeup 
 of a cell, and an individual. For most of life as we know it, this comes down to DNA, our basic building block 
 of life. However, DNA on its own is of little use: it is primarily a storage of information. 
-Instead, our DNA gets expressed as RNA, and proteins, which do the real work of building living creatures. 
+Instead, our DNA gets expressed as mRNA, and proteins, which do the real work of building living creatures. 
 
 %how this is useful in nature
 This separation of genotype and phenotype is useful to nature. It allows for genetic operators, like 
@@ -248,8 +260,8 @@ This algorithm makes a few specific assumptions. First, it assumes that all func
 inputs. While in true mathematics, ``+'' may have many inputs, in this case we assume it has just 2. This still 
 works, mathematically, as one of the children could be another ``+'', which has the same overall effect. 
 
-The next assumption is that the original karva string will not leave us with items still in the worklist, but run out  
-of characters. We can guarantee that this will always work, provided that the string meets certain conditions. 
+The next assumption is that the original karva string will not leave us with items still in the worklist, but have run out  
+of characters in the string. We can guarantee that this will always work, provided that the string meets certain conditions. 
 We first choose a head length, $h$, where the head is first part of the string. The head can contain functions, 
 constants, and free variables. The second part is the tail, which can contain only free variables and constants. 
 If the head were to contain only functions, and each function was of the maximum number of arguments of any functions, 
@@ -282,7 +294,7 @@ For example, if three values generated are 0.5, 1.3 and 2.1, and we have the fun
 ``$/$'' and ``$*$'', then we can combine any pair of these constants with any of the functions. 
 Because some functions like ``$/$'' produce
 different results based on the order of the inputs this 
-can give us more than ${3 \choose 2} * 4$ values. 0.5 and 1.3 can become $0.5 + 1.3 = 1.8$, 
+can give us more than ${3 \choose 2} * 4 = 12$ values. 0.5 and 1.3 can become $0.5 + 1.3 = 1.8$, 
 $0.5 - 1.3 = -0.8$, $0.5 * 1.3 = 0.65$ and $0.5 / 1.3 =  0.3846$. Reversing the minus or divide will 
 produce even more results. 
 
@@ -418,7 +430,8 @@ perfect classification very difficult.
 %Goal of the experiment
 The goal of the experiment is to build a classifier with the highest classification level possible, 
 using one subset of the training set for training, and the others for testing, to ensure overfitting 
-does not occur. 
+does not occur. This particular experiment will show that our framework can, using only the basic 
+built in tools, come up with results as good as other techniques on a simple set.
 
 %Parameters of the experiment, configuration, etc
 
@@ -430,11 +443,12 @@ does not occur.
  Number of Classes & 3 \\
  Training Set Instances & 100 \\
  Testing Set Instances & 50 \\
- Number of Runs & 5 \\
+ Number of Runs & 10 \\
  Number of Generations & 100 \\
- Population Size & 50 \\
- Functions & +,-,*,/,$\sqrt{}$,Sine \\
+ Population Size & 100 \\
+ Functions & +,-,*,/,Sine \\
  Head Size & 5 \\
+ Number of RNCs & 10 \\
  Hidden Layers & 1: 10 nodes \\
  Fitness Process & AddOneOnCorrect \\
  Selection Process & Basic Elitism \\
@@ -455,7 +469,12 @@ testing.
 %goal of experiment
 The goal of the experiment is to build a classifier with the highest classification level possible, 
 using one subset of the training set for training, and the others for testing, to ensure overfitting 
-does not occur. 
+does not occur. This experiment will help to examine how well our current tools in the framework can work 
+on a very large, and very complex dataset. This set is especially difficult as it is very non-separable, quite 
+complex, and even the best machine learning tools have only managed to achieve 80\% correct classification.
+Since this experiment is so difficult, a hidden layer of 60 nodes will be used, and 500 generations will be allowed
+per run. 
+
 
 %parameters of the experiment, configuration, etc
 \begin{tabular}{| l | c |}
@@ -469,8 +488,9 @@ does not occur.
  Number of Runs & 5 \\
  Number of Generations & 500 \\
  Population Size & 50 \\
- Functions & +,-,*,/,$\sqrt{}$,Sine \\
+ Functions & +,-,*,/,Sine \\
  Head Size & 5 \\
+ Number of RNCs & 10 \\
  Hidden Layers & 1: 60 nodes \\
  Fitness Process & AddOneOnCorrect \\
  Selection Process & Basic Elitism \\
@@ -480,29 +500,84 @@ does not occur.
  \hline
 \end{tabular}
 
-\section{Wisconsin Breast Cancer Database}
+\section{Comparison of Network Sizes}
 %description of the data set, problem
+For a final experiment, we will re-use the Letter Image Recognition dataset, and conduct an experiment to see
+the effects of increasing the number of nodes in the hidden layer. To do this, we will use 
+the framework's pipeline system, and make a process which will be activated at the end of each 
+run, increasing the number of nodes in the hidden layer each time. This will help us to see if having 
+more nodes is actually helping, or if it has any detrimental effects. 
 
+The initial hypothesis for this experiment is that the initial scores will be lower, and evolve slower, but that 
+the eventual best for each run will be higher as the number of nodes in the hidden layer increases. 
 
-%goal of experiment
+We will use a slow, exponential increase in the number of nodes. By multiplying the number of nodes in the hidden 
+layer by $\sqrt[4]{5}$, and starting with 20 nodes, we will have in each run: 20, 30, 45, 67, and 100 nodes. 
 
-
-%parameters of the experiment, configuration, etc
-
-
+\begin{tabular}{| l | c |}
+ \hline
+ Title & Hidden Layer Size Comparisons \\
+ \hline
+ Number of Inputs & 16 \\
+ Number of Classes & 26 \\
+ Training Set Instances & 16000 \\
+ Testing Set Instances & 4000 \\
+ Number of Runs & 5 \\
+ Number of Generations & 250 \\
+ Population Size & 50 \\
+ Functions & +,-,*,/,Sine \\
+ Head Size & 5 \\
+ Number of RNCs & 10 \\
+ Hidden Layers & 1: 20, 30, 45, 67 and 100 \\
+ Fitness Process & AddOneOnCorrect \\
+ Selection Process & Basic Elitism \\
+ Mutators & RandomizeGene, RandomReplacement, Complexify \\
+ Mutation Rate & 0.5 \\
+ Crossovers & OnePointPerLayer, CopyParentA \\ 
+ \hline
+\end{tabular}
 
 \chapter{Results}
 
+\section{Iris Plants Database}
 
+\begin{center}
+ \includegraphics[width=400pt,keepaspectratio=true]{./Report/Iris-Chart.png}
+\end{center}
+
+The results of training on the Iris Plant Database are very good- in some cases 99/100 training set items were 
+correctly classified. This is roughly the same results of most machine learning system. The above graph 
+shows us the score of the best of the population, over time, in 10 different runs of the algorithm. The overall 
+idea of how well the framework is doing becomes apparent in the combined view: Initially, scores are low, but 
+immediately, we see a sharp rise in the best score. Over time, most runs had their best member eventually find 
+the right functions and nodes to reach the 99/100 score. 
+
+Since the framework can be setup to do many runs, we could simply have a system which saves the best of each run, 
+and when finally complete, gives us back the very best classifier found. Looking at it this way, even though some 
+runs never got better than 87/100, as long as one of them reaches 99/100, we've got what we need. Also key to note 
+is that this test ran in a very short time. Between the start of the first run, and end of the 10th run, only 50 
+seconds had taken place. 
+
+\section{Letter Image Recognition Data}
+
+
+\section{Comparison of Network Sizes}
 
 
 \chapter{Conclusion}
+
+
+
 
 
 \chapter{References}
 
 %FIND SOURCE:
 %-Genetypes vs Phenotypes
+
+
+
+
 
 
 
