@@ -545,7 +545,7 @@ layer by $\sqrt[4]{5}$, and starting with 20 nodes, we will have in each run: 20
  \includegraphics[width=400pt,keepaspectratio=true]{./Report/Iris-Chart.png}
 \end{center}
 
-The results of training on the Iris Plant Database are very good- in some cases 99/100 training set items were 
+As seen in the graph above, the results of training on the Iris Plant Database are very good- in some cases 99/100 training set items were 
 correctly classified. This is roughly the same results of most machine learning system. The above graph 
 shows us the score of the best of the population, over time, in 10 different runs of the algorithm. The overall 
 idea of how well the framework is doing becomes apparent in the combined view: Initially, scores are low, but 
@@ -560,23 +560,109 @@ seconds had taken place.
 
 \section{Letter Image Recognition Data}
 
+\begin{center}
+ \includegraphics[width=400pt,keepaspectratio=true]{./Report/Letters-Chart.png}
+\end{center}
+
+While the Letter Image Recognition Data did not create a very powerful classifier (only a little over 25\% 
+classification accuracy at the end), it does give us an indication that given more time to process, more powerful
+ones could be evolved. Our graph shows that in all 5 runs, we had an initial boost, as the basic properties of 
+the dataset were learned, followed by a long but steady increase in accuracy. Given that this test was 
+using only the most basic functions, mutators, crossovers, and had no extra complexity using Evolver State Processes, 
+this test does show that on large data sets, classifiers of some sophistication can be created. 
+
+This test only allowed for 500 generations. Perhaps, given a longer time to develop, or with some more complex 
+methods used, we will be able to create powerful classifiers on extremely noisy data, like this one. 
 
 \section{Comparison of Network Sizes}
 
 
+
+
+
+
+
+
+
 \chapter{Conclusion}
 
+\section{Contributions to the Field}
+
+This project's primary goal was to build a framework which implements the Gene Expression Algorithm. 
+In that respect, it is a success. While it currently may not have the full complexity or power of 
+other machine learning systems, it has a strong customizability to allow future researchers using it
+to give it the power and complexity it needs. With that in mind, the project's author feels that 
+this is a small contribution to the field of machine learning and the study of nature-based algorithms. 
+
+\section{Concepts Learned}
+
+Through the development of this project, extensive research and independent learning was done in 
+several areas. First, for background understanding, much reading and studying was done in the 
+fields of machine learning, and genetic algorithms. The topic of Gene Expression Programming 
+is mostly contained in one specific book, 
+Ferreira. %ADD REFERNECE HERE
+As such, that book has been read in its completion multiple times. It is also used as a primary 
+reference for this paper. Additional research was done on the biology-based topics, to better 
+understand both evolution, genetics and neuron cells. 
+
+\section{Future Ideas}
+
+The framework is ready for use, and for expansion. The first step that anyone using it could take 
+is to create their own functions, mutators and crossover methods, and conduct experiments to see 
+what kinds of improvements they make. Some potential examples that have been considered during the 
+project's development:
+\begin{itemize}
+ \item If-Less-Than: a function taking 4 inputs, and returning the 3rd or 4th input depending on whether 
+the first or second is larger. This non-linear function could potentially add a lot of power to a classifier. 
+ \item Mutation rate editing on the fly: at the end of a generation, a measurement of the diversity of 
+the population could be taken, and the mutation rate increased or decreased based on that. 
+ \item Outputting final products as code: When the entire evolver completes, and process could take the best
+ever found, and turn it into an efficient program to be used for classification. This is seen in \cite{ferreira06}.
+\item Graphical representations: given a GEP ANN, a process could draw a graphical representation of the 
+network, to help show the user the relationships inside it. 
+\item Analysis of generated functions: given a large number of runs, are there certain functions which 
+always seem to be used by the best found? Giving the user this information can help them better analyze 
+their dataset. 
+\end{itemize}
+
+The most important item for future work, however, is not the ones that the author has thought of: it's
+the ideas that the readers of this paper and users of the framework can create. 
 
 
+%\chapter{References}
 
-
-\chapter{References}
+\begin{thebibliography}{9}
+\addcontentsline{toc}{chapter}{Bibliography}
 
 %FIND SOURCE:
 %-Genetypes vs Phenotypes
+\bibitem{ferreira06}
+  C\^{a}ndida Ferreira,
+  \emph{Gene Expression Programming}.
+  Springer, Netherlands,
+  2nd Edition,
+  2006.
+
+\bibitem{barton09}
+  Alan J. Barton, 
+  \emph{Learning the Neuron Function Within Neural Networks Based on Genetic Programming}.
+  (Master's Thesis),
+  Carleton University, 2009.
+
+\bibitem{bishop06}
+  Christopher M. Bishop,
+  \emph{Pattern Recognition and Machine Learning}.
+  Springer, New York, USA,
+  2006.
+
+\bibitem{medina09}
+  John Medina, 
+  \emph{Brain Rules: 12 Principles for Surviving and Thriving at Work, Home, and School}.
+  Pear Press, Seattle, USA,
+  2010.
 
 
-
+\end{thebibliography}
 
 
 
