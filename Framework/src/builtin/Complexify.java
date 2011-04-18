@@ -1,3 +1,4 @@
+package builtin;
 import java.util.Random;
 
 import base.Config;

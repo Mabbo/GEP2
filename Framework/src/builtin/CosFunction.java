@@ -1,16 +1,17 @@
+package builtin;
 import framework.Function;
 
 
-public class SineFunction implements Function {
-
+public class CosFunction implements Function {
 	private byte symbol;
 	
 	public double ApplyFunction(double[] arguments) {
-		return Math.sin(arguments[0]);
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 	public String getFunctionName() {
-		return "Sine";
+		return "Cos";
 	}
 
 	public int getNumArgs() {

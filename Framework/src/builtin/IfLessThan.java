@@ -1,26 +1,27 @@
+package builtin;
 import framework.Function;
 
 
-public class CosFunction implements Function {
-	private byte symbol;
-	
+public class IfLessThan implements Function {
+
+	byte symbol;
 	public double ApplyFunction(double[] arguments) {
-		// TODO Auto-generated method stub
-		return 0;
+		assert(arguments.length == 4);
+		if( arguments[0] < arguments[1] )
+			return arguments[2];
+		else 
+			return arguments[3];
 	}
 
 	public String getFunctionName() {
-		return "Cos";
+		return "If-Less-Than";
 	}
-
 	public int getNumArgs() {
-		return 1;
+		return 4;
 	}
-
 	public byte getSymbol() {
 		return symbol;
 	}
-
 	public void setSymbol(byte sym) {
 		symbol = sym;
 	}
