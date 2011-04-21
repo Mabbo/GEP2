@@ -1,9 +1,3 @@
-package builtin;
-
-import base.EvolverState;
-import base.Instance;
-import base.Unit;
-import framework.FitnessProcess;
 
 public class AddOneOnCorrect implements FitnessProcess {
 	//Used for fitness tests

@@ -1,7 +1,3 @@
-package builtin;
-import base.EvolverState;
-import framework.EvolverStateProcess;
-
 
 public class IncreaseLayerOneSize implements EvolverStateProcess {
 

@@ -1,7 +1,3 @@
-package builtin;
-import framework.Function;
-
-
 public class IfLessThan implements Function {
 
 	byte symbol;

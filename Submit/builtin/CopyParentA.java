@@ -1,8 +1,3 @@
-package builtin;
-
-import base.Config;
-import base.Unit;
-import framework.Crossover;
 
 public class CopyParentA implements Crossover {
 

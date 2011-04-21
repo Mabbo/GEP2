@@ -1,6 +1,3 @@
-package builtin;
-
-import framework.Function;
 
 public class DivideFunction implements Function {
 

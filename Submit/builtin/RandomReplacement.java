@@ -1,11 +1,4 @@
-package builtin;
-
 import java.util.Random;
-
-import base.Config;
-import base.Gene;
-import base.Unit;
-import framework.Mutator;
 
 public class RandomReplacement implements Mutator {
 

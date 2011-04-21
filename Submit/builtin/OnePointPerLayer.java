@@ -1,11 +1,4 @@
-package builtin;
-
 import java.util.Random;
-
-import base.Config;
-import base.Genome;
-import base.Unit;
-import framework.Crossover;
 
 public class OnePointPerLayer implements Crossover {
 

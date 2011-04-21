@@ -1,7 +1,3 @@
-package builtin;
-
-import base.EvolverState;
-import framework.SelectionMethod;
 
 public class BasicElitism implements SelectionMethod {
 

@@ -1,11 +1,4 @@
-package builtin;
-
 import java.io.PrintWriter;
-
-import base.EvolverState;
-import base.FunctionSet;
-import base.ModificationSet;
-import framework.EvolverStateProcess;
 
 public class OutputConfig implements EvolverStateProcess {
 

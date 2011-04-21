@@ -1,11 +1,5 @@
-package builtin;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
-import base.Config;
-import base.DataSet;
-import base.Instance;
-import framework.DataSetLoader;
 
 public class NumericalDataSetLoader implements DataSetLoader {
 
