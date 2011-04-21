@@ -448,12 +448,10 @@ public class Config {
 		String sparams = "";
 		if( !cinfo.isBuiltIn ) {
 			sfilename = attrib.getNamedItem("classfile").getNodeValue();
-			slocation = 
-				(attrib.getNamedItem("location") == null? "bin/" : 
-			     attrib.getNamedItem("location").getNodeValue());
+			slocation = attrib.getNamedItem("location").getNodeValue();
 		} else {
-			sfilename = "builtin." + attrib.getNamedItem("builtin").getNodeValue();
-			slocation = "bin/";
+			sfilename = attrib.getNamedItem("builtin").getNodeValue();
+			slocation = "classes";
 		}
 		sparams = 
 			(attrib.getNamedItem("parameters") == null? "" : 
@@ -654,18 +652,15 @@ public class Config {
 		    URL url = file.toURI().toURL();
 		    URL[] urls = new URL[]{url};
 		    ClassLoader cl = new URLClassLoader(urls);
-		    
 		    Class<?> cls = cl.loadClass(className);
-		    		    
 		    return cls;
 		} catch (MalformedURLException e) {
 			System.err.println("1: Error loading class '" + className + "'.");
 			return null;
 		} catch (ClassNotFoundException e) {
-			System.err.println("2: Error loading class '" + className + "'.");
+			System.err.println("2: Error loading class '" + className + "' from location " + file.getAbsolutePath());
 			return null;
 		}
-	
 	}
 	
 	private static Object createInstanceOf(Class<?> c) {

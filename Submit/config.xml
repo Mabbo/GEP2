@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
 <xml>
-	<builtinlocation>/builtin</builtinlocation>
+    <LastUsedConfigFile>/home/mabbo/GEP2/Submit/Test001.config</LastUsedConfigFile>
+    <Location>
+        <X>59</X>
+        <Y>64</Y>
+    </Location>
+    <Width>1125</Width>
+    <Height>712</Height>
 </xml>

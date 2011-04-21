@@ -17,8 +17,6 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-
-
 /**
  * ClassSelector:
  * 
@@ -37,7 +35,7 @@ public class ClassSelector {
 
 	
 	public static void getClassOfType(GEPInterface owner, Type t, ClassInformation ci){
-		ClassLoaderDialog cld = new ClassLoaderDialog(null, ci, owner.getMainDirectory()+ "Framework/bin/builtin", t);
+		ClassLoaderDialog cld = new ClassLoaderDialog(null, ci, "classes", t);
 		cld.setVisible(true);
 	}
 	
@@ -54,7 +52,6 @@ public class ClassSelector {
 			cinfo = ci;
 			directory = filesDir;
 			mytype = t;
-			
 			LoadClasses();
 			LoadVisualComponents();
 			
@@ -76,10 +73,11 @@ public class ClassSelector {
 			for( File f : files ){
 				//Load file
 				try {
-					URL url = f.toURI().toURL();
+				    URL url = dir.toURI().toURL();
 				    URL[] urls = new URL[]{url};
-				    ClassLoader cl = new URLClassLoader(urls);
-				    Class<?> cls = cl.loadClass("builtin." + f.getName().replace(".class", ""));
+				    URLClassLoader cl = new URLClassLoader(urls);
+				    String classname = f.getName().replace(".class", "");
+				    Class<?> cls = cl.loadClass( classname );
 				    ArrayList<Class<?>> interfaces = getAllInterfaces(cls);
 				    for( Class<?> c : interfaces ){ 
 				    	if( c.equals(mytype) && !Modifier.isAbstract(cls.getModifiers()) ) {
@@ -179,7 +177,6 @@ public class ClassSelector {
 			File chosen = chooser.getSelectedFile();
 			File chosenDir = chooser.getCurrentDirectory();
 			
-			//System.out.println("Loading class " + chosen.getAbsolutePath());
 			//Load file
 			FileClass fc = null;
 			try {

@@ -6,6 +6,7 @@
 */bin/*
 */*.class
 Submit/*.class
+Submit/classes/*.class
 report.aux
 report.log
 report.log

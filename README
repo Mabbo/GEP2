@@ -1,0 +1,121 @@
+The GEP Framework - Alpha Edition
+
+---------------------------------
+
+How to use this version:
+
+First, compile the program using the Make utility (makefile included):
+
+$ make
+
+Then, run the program by using the GEPMain class:
+
+$ java GEPMain
+
+This launches the main GUI interface for the program. In some cases, the 
+output window may not be visible (the right side, which should appear as 
+a textarea). If this happens, resize the window, and it should 
+immediately set itself to be visible. 
+
+Once running, many settings are available to be set. How each option works
+will be explained in the next section, but for now, it is recommended 
+that the user try one of the example datasets, included in the 'dataset' 
+directory.
+
+To load these, go to File->Open, and in the main directory, test001.config 
+and test002.config should be visible. Load either of these. To ensure 
+that the dataset is loaded correctly, make sure you reload the directory 
+by pressing the "Load DataSet" button, and selecting the appropriate 
+dataset in the dataset directory (iris.data for test001.config, and 
+letter-recognition.data for test002.config). 
+
+Press Launch, at the bottom, to see that these are working correctly. 
+
+---------------------------------------------------------
+
+Using the configuration editor:
+
+Title: Optional piece of information to give a name to a specific test.
+
+DataSet: The dataset being loaded to train the classifier on. Use the 
+"Load DataSet" button to load a new file. 
+
+DataSet Loader: The class being used to turn the dataset file into a 
+DataSet object in the evolver. This can be the built in 
+"NumericalDataSetLoader", or a custom one built by the user which meets 
+the DataSetLoader interface. 
+
+Parameters: What parameters should be passed into the DataSet Loader. 
+
+Number of Inputs: How many inputs the DataSet Loader should be told exist 
+in the dataset. 
+
+Number of Classes: How many potential classes the dataset is classified 
+into. 
+
+Training Percentage: From 0.1 to 1.0, what percentage of the dataset 
+should be used for training (the rest saved in a test-set).
+
+Number of Runs: How many runs of the evolver should be done. 
+
+Number of Generations: How many generations each run should have.
+
+Population Size: Size of population the genetic algorithm will have. 
+
+Functions: The list of functions the classifier neural network can use. 
+To remove a function, click on the big X button beside the name. To give 
+a function parameters, simple fill in the text under the function. To
+add a new function, click the "Add Function" button, and select one from 
+the list, or load an external function. 
+
+Head Size: The size of the head for each karva-string for each node (see
+accompanying paper for more details on head size, and GEP algorithm). 
+
+Number of RNCs: The number of random numerical constants in each node 
+(see paper for more details). 
+
+Number of Layers: Number of layers in the neural network.
+
+Layers: Number of nodes in each layer of the network. 
+
+Fitness Process: Which fitness process is used during the genetic 
+algorithm. Parameters can be added by filling in the text field under 
+the name. Loading a different fitness process can be done by pressing 
+the Load Fitness Process button. 
+
+Selection Process: Similar to the Fitness Process, but used to choose 
+the selection process. 
+
+Mutators: List of mutators used by the algorithm, with a weight for 
+how often they should be used. Like with the functions, the X button can 
+remove a mutator, and the Add Mutator button will add a new one. 
+
+Mutation Rate: From 0.1 or higher (where 0.1 indicates 10%), what percentage of 
+individuals should have mutations applied to them during the algorithm. 
+
+Crossovers: Similar to the Mutators list, but loads which crossover methods to 
+use. 
+
+Evolver State Processes: Start, End, Start of Run, End of Run, Before Generation, 
+After Generation. 
+For each of these times, loads a list of Evolver State Processes to be run at 
+that time. Can be given parameters, and removed with the X button. 
+
+Launch: Initiates the GEP Framework, outputting things to the output window 
+on the right side. 
+
+Stop: Stops the currently running GEP Framework process. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+

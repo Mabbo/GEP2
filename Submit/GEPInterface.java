@@ -53,7 +53,7 @@ import org.w3c.dom.NodeList;
 
 public class GEPInterface extends JFrame {
 	private static final long serialVersionUID = 3544476936851462325L;
-	public static String defaultConfigPath = "/default.gepconfig";
+	public static String ConfigPath = "config.xml";
 	
 	private ConfigModel config = null;
 	private ConfigPanel configPanel;
@@ -66,14 +66,8 @@ public class GEPInterface extends JFrame {
 	
 	public GEPInterface(){
 		super("GEP Interface");
-		Initialize(defaultConfigPath);
+		Initialize(ConfigPath);
 	}
-	
-	public GEPInterface(String configfile){
-		super("GEP Interface");
-		Initialize(configfile);
-	}
-	
 	
 	private void Initialize(String guiconfigfile){
 		
@@ -466,7 +460,7 @@ public class GEPInterface extends JFrame {
 			transformer.transform(domSource, sr);
 			String xml = sw.toString();
 	
-			File file = new File(defaultConfigPath);
+			File file = new File(ConfigPath);
 			if( file.exists() ) file.delete();
 			file.createNewFile();
 			FileWriter fw = new FileWriter(file);

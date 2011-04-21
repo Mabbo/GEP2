@@ -1,7 +1,5 @@
 
 
-
-
 public class GEPMain {
 	
 	public static String defaultConfigPath = "default.gepconfig";

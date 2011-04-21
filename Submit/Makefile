@@ -1,5 +1,5 @@
 default: 
-	javac *.java builtin/*.java
+	javac *.java classes/*.java
 
 clean:
-	rm *.class builtin/*.class
+	rm *.class classes/*.class

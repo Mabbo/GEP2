@@ -300,6 +300,7 @@ public class ConfigModel {
 	//Reads a config model from an xml file
 	public static ConfigModel OpenConfig(String filename) throws ParserConfigurationException, SAXException, IOException, XPathExpressionException {
 		ConfigModel conf = new ConfigModel(filename);
+		if( filename.equals("") ) return conf;
 		DocumentBuilderFactory domFactory;
 		DocumentBuilder builder;
 		Document doc;
