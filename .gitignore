@@ -4,6 +4,8 @@
 */.settings
 */bin/
 */bin/*
+*/*.class
+Submit/*.class
 report.aux
 report.log
 report.log

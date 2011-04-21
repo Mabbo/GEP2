@@ -1,10 +1,7 @@
 
-
-
-
 public class GEPMain {
 	
-	public static String defaultConfigPath = "default.gepconfig";
+	public static String defaultConfigPath = "guiconfig.xml";
 	
 	public static void main(String[] args) {
 		GEPInterface gepi = null;
